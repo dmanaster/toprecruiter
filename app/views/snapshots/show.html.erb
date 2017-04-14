@@ -12,8 +12,8 @@
 
 <p>
   <strong>Episode:</strong>
-  <%= @snapshot.episode %>
+  <%= @snapshot.episode.id %>
 </p>
 
-<%= link_to 'Edit', edit_snapshot_path(@snapshot) %> |
-<%= link_to 'Back', snapshots_path %>
+<%= link_to 'Edit', edit_episode_snapshot_path(@snapshot.episode, @snapshot) %> |
+<%= link_to 'Back', episode_snapshots_path %>
