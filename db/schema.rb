@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170414001200) do
+ActiveRecord::Schema.define(version: 20170414002940) do
 
   create_table "episodes", force: :cascade do |t|
     t.string   "title"
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 20170414001200) do
     t.date     "published"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "snapshots", force: :cascade do |t|
+    t.date     "date"
+    t.integer  "views"
+    t.integer  "episode_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["episode_id"], name: "index_snapshots_on_episode_id"
   end
 
 end
