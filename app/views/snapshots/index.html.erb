@@ -19,8 +19,6 @@
         <td><%= snapshot.views %></td>
         <td><%= snapshot.episode.id %></td>
         <td><%= link_to 'Show', episode_snapshot_path(snapshot.episode, snapshot) %></td>
-        <td><%= link_to 'Edit', edit_episode_snapshot_path(snapshot.episode, snapshot) %></td>
-        <td><%= link_to 'Destroy', episode_snapshot_path(snapshot.episode, snapshot), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
