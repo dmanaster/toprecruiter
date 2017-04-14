@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170414002940) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "episodes", force: :cascade do |t|
     t.string   "title"
     t.string   "url"
@@ -26,7 +29,8 @@ ActiveRecord::Schema.define(version: 20170414002940) do
     t.integer  "episode_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["episode_id"], name: "index_snapshots_on_episode_id"
+    t.index ["episode_id"], name: "index_snapshots_on_episode_id", using: :btree
   end
 
+  add_foreign_key "snapshots", "episodes"
 end
