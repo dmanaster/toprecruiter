@@ -42,7 +42,7 @@ class SnapshotsController < ApplicationController
   def update
     respond_to do |format|
       if @snapshot.update(snapshot_params)
-        format.html { redirect_to @snapshot, notice: 'Snapshot was successfully updated.' }
+        format.html { redirect_to [@snapshot.episode, @snapshot], notice: 'Snapshot was successfully updated.' }
         format.json { render :show, status: :ok, location: @snapshot }
       else
         format.html { render :edit }

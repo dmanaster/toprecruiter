@@ -1,4 +1,4 @@
-<%= form_for(snapshot) do |f| %>
+<%= form_for [episode, snapshot] do |f| %>
   <% if snapshot.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(snapshot.errors.count, "error") %> prohibited this snapshot from being saved:</h2>
