@@ -26,6 +26,11 @@
     <%= f.date_select :published %>
   </div>
 
+  <div class="field">
+    <%= f.label :source %>
+    <%= f.select :source, ['facebook', 'youtube'], include_blank: true %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
