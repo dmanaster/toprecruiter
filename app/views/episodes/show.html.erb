@@ -16,7 +16,7 @@
     <% @episode.snapshots.each do |snapshot| %>
       <tr>
         <td><%= snapshot.date %></td>
-        <td><%= snapshot.views %></td>
+        <td><%= number_with_delimiter(snapshot.views, :delimiter => ',') %></td>
       </tr>
     <% end %>
   </tbody>
