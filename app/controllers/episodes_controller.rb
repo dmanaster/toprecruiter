@@ -5,11 +5,13 @@ class EpisodesController < ApplicationController
   # GET /episodes.json
   def index
     @episodes = Episode.all
+    @chart = get_all_hashes(@episodes)
   end
 
   # GET /episodes/1
   # GET /episodes/1.json
   def show
+    @chart = get_hash(@episode)
   end
 
   # GET /episodes/new
@@ -66,6 +68,26 @@ class EpisodesController < ApplicationController
     def set_episode
       @episode = Episode.find(params[:id])
     end
+
+    def get_hash(episode)
+      chart = Hash.new
+      episode.snapshots.each do |snapshot|
+        chart[snapshot.date] = snapshot.views
+      end
+      chart
+    end
+
+    def get_all_hashes(episodes)
+      chart = Array.new
+      episodes.each do |episode|
+        episode_hash = Hash.new
+        episode_hash["name"] = episode.title
+        episode_hash["data"] = get_hash(episode)
+        chart << episode_hash
+      end
+      chart
+    end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def episode_params

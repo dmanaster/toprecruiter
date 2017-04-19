@@ -3,24 +3,8 @@
 <h2><%= link_to @episode.title, @episode.url %></h2>
 
 <h3>Published: <%= @episode.published %></h3>
-<h3>Source: <%= @episode.source %></h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Views</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @episode.snapshots.each do |snapshot| %>
-      <tr>
-        <td><%= snapshot.date %></td>
-        <td><%= number_with_delimiter(snapshot.views, :delimiter => ',') %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= line_chart @chart %>
 
 <%= link_to 'Edit', edit_episode_path(@episode) %> |
 <%= link_to 'Back', episodes_path %>
