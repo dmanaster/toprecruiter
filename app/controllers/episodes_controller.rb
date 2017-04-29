@@ -5,13 +5,15 @@ class EpisodesController < ApplicationController
   # GET /episodes.json
   def index
     @episodes = Episode.all
-    @chart = get_all_hashes(@episodes)
+    @views_chart = get_all_views(@episodes)
+    @change_chart = get_all_differences(@episodes)
   end
 
   # GET /episodes/1
   # GET /episodes/1.json
   def show
-    @chart = get_hash(@episode)
+    @views_chart = get_views(@episode)
+    @change_chart = get_differences(@episode)
   end
 
   # GET /episodes/new
@@ -69,7 +71,7 @@ class EpisodesController < ApplicationController
       @episode = Episode.find(params[:id])
     end
 
-    def get_hash(episode)
+    def get_views(episode)
       chart = Hash.new
       episode.snapshots.each do |snapshot|
         chart[snapshot.date] = snapshot.views
@@ -77,17 +79,39 @@ class EpisodesController < ApplicationController
       chart
     end
 
-    def get_all_hashes(episodes)
+    def get_differences(episode)
+      chart = Hash.new
+      episode.snapshots.each do |snapshot|
+        last_snapshot_date = snapshot.date - 1
+        last_snapshot = episode.snapshots.where(:date => last_snapshot_date).first
+        if last_snapshot
+          chart[snapshot.date] = snapshot.views - last_snapshot.views
+        end
+      end
+      chart
+    end
+
+    def get_all_views(episodes)
       chart = Array.new
       episodes.each do |episode|
         episode_hash = Hash.new
         episode_hash["name"] = episode.title
-        episode_hash["data"] = get_hash(episode)
+        episode_hash["data"] = get_views(episode)
         chart << episode_hash
       end
       chart
     end
 
+    def get_all_differences(episodes)
+      chart = Array.new
+      episodes.each do |episode|
+        episode_hash = Hash.new
+        episode_hash["name"] = episode.title
+        episode_hash["data"] = get_differences(episode)
+        chart << episode_hash
+      end
+      chart
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def episode_params

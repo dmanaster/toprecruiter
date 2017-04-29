@@ -3,8 +3,14 @@
 <h2><%= link_to @episode.title, @episode.url %></h2>
 
 <h3>Published: <%= @episode.published %></h3>
-
-<%= line_chart @chart %>
+<p></p>
+<p></p>
+<h2>Total Views</h2>
+<%= line_chart @views_chart %>
+<p></p>
+<p></p>
+<h2>New Views</h2>
+<%= line_chart @change_chart %>
 
 <%= link_to 'Edit', edit_episode_path(@episode) %> |
 <%= link_to 'Back', episodes_path %>
